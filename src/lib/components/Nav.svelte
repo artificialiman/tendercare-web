@@ -4,8 +4,9 @@
 	interface Props {
 		current?: 'home' | 'sports' | 'yearbook' | 'awards' | 'feed' | 'results' | 'portal' | 'about';
 		transparent?: boolean;
+		light?: boolean;
 	}
-	let { current = 'home', transparent = false }: Props = $props();
+	let { current = 'home', transparent = false, light = false }: Props = $props();
 
 	const links = [
 		{ id: 'home', href: `${base}/`, label: 'Home' },
@@ -39,11 +40,12 @@
 
 <svelte:window onscroll={onScroll} />
 
-<nav class="nav" class:nav--transparent={transparent} class:nav--scrolled={scrolled}>
+<nav class="nav" class:nav--transparent={transparent} class:nav--scrolled={scrolled} class:nav--light={light}>
 	<a href={`${base}/`} class="nav__logo">
 		<span
-			style="font-family:var(--font-serif);font-size:1.15rem;font-weight:600;color:var(--color-ink);letter-spacing:0.02em;"
-			>TCC</span
+			style="font-family:var(--font-serif);font-size:1.15rem;font-weight:600;color:{light
+				? 'white'
+				: 'var(--color-ink)'};letter-spacing:0.02em;">TCC</span
 		>
 	</a>
 	<div class="nav__links">
@@ -65,3 +67,12 @@
 		<a href={link.href} class="nav__drawer-link" onclick={closeDrawer}>{link.label}</a>
 	{/each}
 </div>
+
+<style>
+	.nav--light .nav__link {
+		color: white;
+	}
+	.nav--light .nav__toggle-bar {
+		background: white;
+	}
+</style>
