@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { PORTAL_URL } from '$lib/config';
 	import Nav from '$lib/components/Nav.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import { animateOnScroll, countUp, parallax } from '$lib/actions/scrollFx';
@@ -228,13 +229,13 @@
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-top:var(--space-6);" data-stagger>
-        <a use:animateOnScroll href="{base}/student-portal/" style="text-decoration:none;" data-animate="fade-up">
+        <a use:animateOnScroll href="{PORTAL_URL}/student-portal/" style="text-decoration:none;" data-animate="fade-up">
           <div style="background:var(--color-purple);border-radius:var(--radius-lg);padding:var(--space-8) var(--space-6);display:flex;flex-direction:column;justify-content:space-between;min-height:140px;position:relative;overflow:hidden;">
             <span style="font-family:var(--font-display);font-size:var(--text-3xl);color:var(--color-lemon);letter-spacing:0.05em;line-height:1;">STUDENT<br>PORTAL</span>
             <span style="font-family:var(--font-sans);font-size:var(--text-xs);letter-spacing:var(--tracking-widest);text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:var(--space-4);">Check your results →</span>
           </div>
         </a>
-        <a use:animateOnScroll href="{base}/results/" style="text-decoration:none;" data-animate="fade-up">
+        <a use:animateOnScroll href="{PORTAL_URL}/results/" style="text-decoration:none;" data-animate="fade-up">
           <div style="background:var(--color-ink);border-radius:var(--radius-lg);padding:var(--space-8) var(--space-6);display:flex;flex-direction:column;justify-content:space-between;min-height:140px;position:relative;overflow:hidden;">
             <span style="font-family:var(--font-display);font-size:var(--text-3xl);color:white;letter-spacing:0.05em;line-height:1;">RESULTS<br>&amp; AWARDS</span>
             <span style="font-family:var(--font-sans);font-size:var(--text-xs);letter-spacing:var(--tracking-widest);text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:var(--space-4);">Scores · Notes · Reports →</span>

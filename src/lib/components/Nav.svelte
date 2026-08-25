@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { PORTAL_URL } from '$lib/config';
 
 	interface Props {
 		current?: 'home' | 'sports' | 'yearbook' | 'awards' | 'feed' | 'results' | 'portal' | 'about';
@@ -14,8 +15,8 @@
 		{ id: 'yearbook', href: `${base}/yearbook/`, label: 'Yearbook' },
 		{ id: 'awards', href: `${base}/awards/`, label: 'Awards' },
 		{ id: 'feed', href: `${base}/feed/`, label: 'Feed' },
-		{ id: 'results', href: `${base}/results/`, label: 'Results' },
-		{ id: 'portal', href: `${base}/student-portal/`, label: 'Portal' },
+		{ id: 'results', href: `${PORTAL_URL}/results/`, label: 'Results' },
+		{ id: 'portal', href: `${PORTAL_URL}/student-portal/`, label: 'Portal' },
 		{ id: 'about', href: `${base}/about/`, label: 'About' }
 	];
 

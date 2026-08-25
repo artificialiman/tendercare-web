@@ -47,6 +47,24 @@ export function countUp(node: HTMLElement, params: { target: number; suffix?: st
 	return { destroy: () => observer.disconnect() };
 }
 
+/** Toggles `.flipped` on click or Enter/Space. Mirrors `.yearbook__card--flip` click behavior. */
+export function flipOnClick(node: HTMLElement) {
+	const toggle = () => node.classList.toggle('flipped');
+	const onKeydown = (e: KeyboardEvent) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			toggle();
+		}
+	};
+	node.addEventListener('click', toggle);
+	node.addEventListener('keydown', onKeydown);
+	return {
+		destroy: () => {
+			node.removeEventListener('click', toggle);
+			node.removeEventListener('keydown', onKeydown);
+		}
+	};
+}
 /** Translates an element on scroll at a given speed. Mirrors `.parallax[data-speed]`. */
 export function parallax(node: HTMLElement, speed = 0.3) {
 	const onScroll = () => {
