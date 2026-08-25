@@ -29,10 +29,11 @@ export default defineConfig({
 			},
 
 			prerender: {
-				// TODO: tighten back to the default 'fail' once sports/yearbook/awards/
-				// feed/results/student-portal/about routes all exist — until then,
-				// homepage links to them are expected and shouldn't fail the build.
-				handleHttpError: 'warn'
+				// All internal routes (sports/yearbook/awards/feed/about) now exist,
+				// and Results/Student-Portal correctly point at PORTAL_URL (a
+				// separate app) rather than an internal route — so there's nothing
+				// left that should legitimately 404 during prerender. Back to strict.
+				handleHttpError: 'fail'
 			}
 		})
 	]
