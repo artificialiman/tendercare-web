@@ -26,7 +26,7 @@
 				<a href="{base}/about/#contact" class="site-footer__link">Contact Us</a>
 				<a href="{base}/about/#admissions" class="site-footer__link">Admissions</a>
 				<a href="{base}/awards/" class="site-footer__link">Academic Record</a>
-				<a href="{PORTAL_URL}/results/" class="site-footer__link">Results</a>
+				<a href="{PORTAL_URL}/student-portal/" class="site-footer__link">Check Result</a>
 			</div>
 		</div>
 		<p class="site-footer__copy">© 2025 Tendercare Comprehensive College. All rights reserved.</p>

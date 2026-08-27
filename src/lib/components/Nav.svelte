@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { PORTAL_URL } from '$lib/config';
 	import Crest from '$lib/components/Crest.svelte';
 
 	interface Props {
-		current?: 'home' | 'sports' | 'yearbook' | 'awards' | 'feed' | 'results' | 'portal' | 'about';
+		current?: 'home' | 'sports' | 'yearbook' | 'awards' | 'feed' | 'about';
 		transparent?: boolean;
 		light?: boolean;
 	}
@@ -16,8 +15,6 @@
 		{ id: 'yearbook', href: `${base}/yearbook/`, label: 'Yearbook' },
 		{ id: 'awards', href: `${base}/awards/`, label: 'Awards' },
 		{ id: 'feed', href: `${base}/feed/`, label: 'Feed' },
-		{ id: 'results', href: `${PORTAL_URL}/results/`, label: 'Results' },
-		{ id: 'portal', href: `${PORTAL_URL}/student-portal/`, label: 'Portal' },
 		{ id: 'about', href: `${base}/about/`, label: 'About' }
 	];
 

@@ -38,7 +38,7 @@
       </p>
       <div class="bursary__hero-cta" style="animation:fadeUp 0.8s var(--ease-out) 0.9s both;">
         <a href="{base}/about/" class="btn btn--primary">Discover the School</a>
-        <a href="{base}/feed/" class="btn btn--ghost">Student Life</a>
+        <a href="{PORTAL_URL}/student-portal/" class="btn btn--ghost">Check Result</a>
       </div>
     </div>
   </section>
