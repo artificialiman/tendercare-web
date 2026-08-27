@@ -80,6 +80,27 @@
     </div>
   </section>
 
+  <!--
+    Stakeholders / Family Office -- permanent section, distinct from the
+    Faculty grid below. This is a structural placeholder only: real
+    names, roles, and bios go here by direct edit to this file, not
+    through any admin UI -- that content is deliberately kept out of
+    any database and off any editable-by-non-owner surface. Nothing here
+    should be treated as content to auto-generate or guess at.
+  -->
+  <section class="section" style="background:var(--color-purple-ghost, #f4effa);" id="stakeholders">
+    <div class="container container--md">
+      <span use:animateOnScroll class="t-eyebrow" data-animate="fade-up">Stewardship</span>
+      <h2 use:animateOnScroll style="font-family:var(--font-serif);font-size:var(--text-3xl);font-weight:300;margin-bottom:var(--space-8);" data-animate="fade-up">
+        Who stands behind<br><em>Tendercare.</em>
+      </h2>
+      <div use:animateOnScroll data-animate="fade-up" style="border:1px dashed var(--color-purple, #6b46c1); border-radius:var(--radius-md); padding:var(--space-10) var(--space-6); text-align:center; opacity:0.55;">
+        <p style="font-family:var(--font-sans); font-size:var(--text-sm); letter-spacing:var(--tracking-wide); text-transform:uppercase; margin-bottom:var(--space-2);">Stakeholder / Family Office</p>
+        <p style="font-family:var(--font-sans); font-size:var(--text-xs);">Content pending — added directly to this page, not generated.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Faculty -->
   <section class="section" style="background:var(--color-cream-warm);" id="faculty">
     <div class="container">

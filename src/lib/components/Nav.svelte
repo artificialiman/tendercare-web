@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { PORTAL_URL } from '$lib/config';
+	import Crest from '$lib/components/Crest.svelte';
 
 	interface Props {
 		current?: 'home' | 'sports' | 'yearbook' | 'awards' | 'feed' | 'results' | 'portal' | 'about';
@@ -43,11 +44,7 @@
 
 <nav class="nav" class:nav--transparent={transparent} class:nav--scrolled={scrolled} class:nav--light={light}>
 	<a href={`${base}/`} class="nav__logo">
-		<span
-			style="font-family:var(--font-serif);font-size:1.15rem;font-weight:600;color:{light
-				? 'white'
-				: 'var(--color-ink)'};letter-spacing:0.02em;">TCC</span
-		>
+		<Crest size="1.9rem" style={`color:${light ? 'white' : 'var(--color-ink)'};`} />
 	</a>
 	<div class="nav__links">
 		{#each links as link (link.id)}
