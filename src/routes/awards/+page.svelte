@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import Nav from '$lib/components/Nav.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import { animateOnScroll, countUp, parallax } from '$lib/actions/scrollFx';
-	import top3Data from '$lib/data/top3.json';
+	import awardsData from '$lib/data/awards.json';
 
 	const CLASS_ORDER = [
 		'JSS1A', 'JSS1B', 'JSS2A', 'JSS2B', 'JSS3A', 'JSS3B',
@@ -10,14 +11,42 @@
 		'SS3 Science', 'SS3 Actuarial'
 	];
 
-	interface Top3Entry {
+	interface AwardEntry {
+		student_id: string;
+		name: string;
+		remark: string;
+	}
+	interface ClassAward {
 		academic_year: string;
 		term_name: string;
-		top3: { name: string; average: number }[];
+		top3: AwardEntry[];
 	}
-	const top3: Record<string, Top3Entry> = top3Data;
-	const publishedClasses = CLASS_ORDER.filter((c) => c in top3);
+	interface Category {
+		label: string;
+		classes: Record<string, ClassAward>;
+	}
+	const categories: Record<string, Category> = awardsData.categories;
+
+	// Only "overall_average" exists today -- more categories (per-subject,
+	// per-skill) will appear here once those are defined; this page loops
+	// over whatever's present rather than hardcoding just the one.
+	const categoryList = Object.entries(categories);
+
+	function publishedClasses(category: Category) {
+		return CLASS_ORDER.filter((c) => c in category.classes);
+	}
+
+	function portraitSrc(studentId: string) {
+		return `${base}/img/portraits/${studentId}.jpg`;
+	}
+
+	function onPortraitError(e: Event) {
+		// Most students won't have a portrait uploaded yet -- fall back to
+		// a plain initial-letter placeholder rather than a broken image icon.
+		(e.currentTarget as HTMLImageElement).style.display = 'none';
+	}
 </script>
+
 
 <svelte:head>
 	<title>Academic Record — Tendercare Comprehensive College</title>
@@ -155,37 +184,48 @@
     </div>
   </section>
 
-  <!-- Top 3 per class-arm -->
-  <section class="section" style="background:transparent;">
-    <div class="container">
-      <span use:animateOnScroll class="t-eyebrow" style="color:rgba(255,255,255,0.4);margin-bottom:var(--space-8);display:block;" data-animate="fade-up">Top 3 — By Class</span>
+  <!-- Class-arm awards, by category -->
+  {#each categoryList as [categoryId, category] (categoryId)}
+    <section class="section" style="background:transparent;">
+      <div class="container">
+        <span use:animateOnScroll class="t-eyebrow" style="color:rgba(255,255,255,0.4);margin-bottom:var(--space-8);display:block;" data-animate="fade-up">{category.label} — By Class</span>
 
-      {#if publishedClasses.length === 0}
-        <p style="font-family:var(--font-sans);font-size:var(--text-sm);opacity:0.45;max-width:48ch;">
-          Top performers per class will appear here once each class's results are far enough along to publish — at least 40% of a class needs complete scores before any names are shown.
-        </p>
-      {:else}
-        <div class="grid grid--3" data-stagger>
-          {#each publishedClasses as classArm (classArm)}
-            <div use:animateOnScroll class="awards__card" data-animate="fade-up">
-              <h3 class="awards__card-title">{classArm}</h3>
-              <p style="font-family:var(--font-sans);font-size:var(--text-xs);opacity:0.4;margin-bottom:var(--space-3);">
-                {top3[classArm].academic_year} · {top3[classArm].term_name} Term
-              </p>
-              <ol style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--space-2);">
-                {#each top3[classArm].top3 as student, i (student.name)}
-                  <li style="display:flex;justify-content:space-between;font-family:var(--font-sans);font-size:var(--text-sm);">
-                    <span>{i + 1}. {student.name}</span>
-                    <span style="opacity:0.5;">{student.average}</span>
-                  </li>
-                {/each}
-              </ol>
-            </div>
-          {/each}
-        </div>
-      {/if}
-    </div>
-  </section>
+        {#if publishedClasses(category).length === 0}
+          <p style="font-family:var(--font-sans);font-size:var(--text-sm);opacity:0.45;max-width:48ch;">
+            Top performers per class will appear here once each class's results are far enough along to publish — at least 40% of a class needs complete scores before any names are shown.
+          </p>
+        {:else}
+          <div class="grid grid--3" data-stagger>
+            {#each publishedClasses(category) as classArm (classArm)}
+              <div use:animateOnScroll class="awards__card" data-animate="fade-up">
+                <h3 class="awards__card-title">{classArm}</h3>
+                <p style="font-family:var(--font-sans);font-size:var(--text-xs);opacity:0.4;margin-bottom:var(--space-4);">
+                  {category.classes[classArm].academic_year} · {category.classes[classArm].term_name} Term
+                </p>
+                <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+                  {#each category.classes[classArm].top3 as student, i (student.student_id)}
+                    <div style="display:flex;align-items:center;gap:var(--space-3);">
+                      <div class="media--portrait" style="width:48px;height:48px;flex-shrink:0;border-radius:50%;aspect-ratio:1;">
+                        <img
+                          src={portraitSrc(student.student_id)}
+                          alt={student.name}
+                          onerror={onPortraitError}
+                        />
+                      </div>
+                      <div>
+                        <p style="font-family:var(--font-sans);font-size:var(--text-sm);font-weight:500;">{i + 1}. {student.name}</p>
+                        <p style="font-family:var(--font-sans);font-size:var(--text-xs);opacity:0.5;">{student.remark}</p>
+                      </div>
+                    </div>
+                  {/each}
+                </div>
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
+    </section>
+  {/each}
 
   <!-- Photo gallery -->
   <section style="padding:var(--space-2);background:var(--color-purple-deep);">

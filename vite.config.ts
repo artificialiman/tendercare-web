@@ -32,8 +32,19 @@ export default defineConfig({
 				// All internal routes (sports/yearbook/awards/feed/about) now exist,
 				// and Results/Student-Portal correctly point at PORTAL_URL (a
 				// separate app) rather than an internal route — so there's nothing
-				// left that should legitimately 404 during prerender. Back to strict.
-				handleHttpError: 'fail'
+				// left that should legitimately 404 during prerender EXCEPT student
+				// portrait images, which are expected to be missing for most
+				// students until they're manually provisioned (see the awards page
+				// and its /img/portraits/{student_id}.jpg convention). Those are
+				// selectively ignored below; everything else still fails the build.
+				handleHttpError: ({ status, path, referenceType, referrer }) => {
+					if (status === 404 && path.startsWith('/img/portraits/')) {
+						return; // expected — most students don't have a portrait yet
+					}
+					throw new Error(
+						`${status} ${path}${referrer ? ` (linked from ${referenceType} ${referrer})` : ''}`
+					);
+				}
 			}
 		})
 	]
