@@ -1,0 +1,22 @@
+{
+  "generated_at": null,
+  "note": "Each class's id_recycle_eligible_on is exactly one year after graduated_on. tendercare-teacher's promotion job should populate graduated_on automatically at rollover; a matching recycling job reclaims that class's IDs into the incoming JSS1 class once id_recycle_eligible_on has passed, so dormant alumni records don't tie down valid IDs forever.",
+  "classes": {
+    "2025": {
+      "graduated_on": "2025-09-01",
+      "id_recycle_eligible_on": "2026-09-01",
+      "alumni": [
+        { "name": "Angel", "arm": "SS3 Science" },
+        { "name": "Bamise", "arm": "SS3 Science" },
+        { "name": "Bright", "arm": "SS3 Science" },
+        { "name": "Dorcas", "arm": "SS3 Science" },
+        { "name": "Enoch", "arm": "SS3 Science" },
+        { "name": "Famous", "arm": "SS3 Science" },
+        { "name": "Samuel", "arm": "SS3 Science" },
+        { "name": "Taiwo", "arm": "SS3 Science" },
+        { "name": "Temi", "arm": "SS3 Science" },
+        { "name": "Zainab", "arm": "SS3 Science" }
+      ]
+    }
+  }
+}
