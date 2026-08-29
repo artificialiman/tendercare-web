@@ -3,7 +3,7 @@
 	import Crest from '$lib/components/Crest.svelte';
 
 	interface Props {
-		current?: 'home' | 'sports' | 'yearbook' | 'awards' | 'feed' | 'about';
+		current?: 'home' | 'sports' | 'yearbook' | 'awards' | 'feed' | 'about' | 'alumni';
 		transparent?: boolean;
 		light?: boolean;
 	}
@@ -15,6 +15,7 @@
 		{ id: 'yearbook', href: `${base}/yearbook/`, label: 'Yearbook' },
 		{ id: 'awards', href: `${base}/awards/`, label: 'Awards' },
 		{ id: 'feed', href: `${base}/feed/`, label: 'Feed' },
+		{ id: 'alumni', href: `${base}/alumni/`, label: 'Alumni' },
 		{ id: 'about', href: `${base}/about/`, label: 'About' }
 	];
 
