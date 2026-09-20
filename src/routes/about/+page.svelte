@@ -118,6 +118,7 @@
           <div>
             <h3 class="faculty__name">— Principal's Name —</h3>
             <p class="faculty__role">Principal</p>
+            <span class="faculty__type">— Full-time / Part-time / Corps Member —</span>
             <p class="faculty__bio" style="margin-top:var(--space-3);">A founding vision-holder and the driving force behind Tendercare's conviction that no discipline is beyond reach.</p>
           </div>
         </div>
@@ -129,6 +130,7 @@
           <div>
             <h3 class="faculty__name">— Vice Principal —</h3>
             <p class="faculty__role">Vice Principal, Academics</p>
+            <span class="faculty__type">— Full-time / Part-time / Corps Member —</span>
             <p class="faculty__bio" style="margin-top:var(--space-3);">Responsible for academic standards, staff development, and the culture of excellence that defines TCC's classrooms.</p>
           </div>
         </div>
@@ -140,6 +142,7 @@
           <div>
             <h3 class="faculty__name">— Sports Coordinator —</h3>
             <p class="faculty__role">Sports & Co-curricular</p>
+            <span class="faculty__type">— Full-time / Part-time / Corps Member —</span>
             <p class="faculty__bio" style="margin-top:var(--space-3);">The architect of TCC's athletic programme and the force behind three consecutive Interhouse Sports Festivals.</p>
           </div>
         </div>
@@ -151,6 +154,7 @@
           <div>
             <h3 class="faculty__name">— Head of Sciences —</h3>
             <p class="faculty__role">Sciences Department</p>
+            <span class="faculty__type">— Full-time / Part-time / Corps Member —</span>
             <p class="faculty__bio" style="margin-top:var(--space-3);">Leading a department that competes at external science fairs and sends students to national olympiads.</p>
           </div>
         </div>
@@ -162,6 +166,7 @@
           <div>
             <h3 class="faculty__name">— Head of Mathematics —</h3>
             <p class="faculty__role">Mathematics Department</p>
+            <span class="faculty__type">— Full-time / Part-time / Corps Member —</span>
             <p class="faculty__bio" style="margin-top:var(--space-3);">Building problem-solvers, not just exam-passers. The Mathematics Olympiad team begins here.</p>
           </div>
         </div>
@@ -173,13 +178,14 @@
           <div>
             <h3 class="faculty__name">— Head of Arts —</h3>
             <p class="faculty__role">Creative Arts & Drama</p>
+            <span class="faculty__type">— Full-time / Part-time / Corps Member —</span>
             <p class="faculty__bio" style="margin-top:var(--space-3);">Every school show, drama festival, and creative exhibition passes through this office. Art at TCC is serious.</p>
           </div>
         </div>
 
       </div>
 
-      <p style="font-family:var(--font-sans);font-size:var(--text-xs);opacity:0.35;text-align:center;margin-top:var(--space-6);letter-spacing:var(--tracking-wide);">Replace with actual staff names, photos, and roles</p>
+      <p style="font-family:var(--font-sans);font-size:var(--text-xs);opacity:0.35;text-align:center;margin-top:var(--space-6);letter-spacing:var(--tracking-wide);">Replace with actual staff names, photos, roles, and full-time/part-time/corps-member status</p>
     </div>
   </section>
 
@@ -231,6 +237,27 @@
         <div>
           <span class="t-eyebrow">Contact</span>
           <p style="font-family:var(--font-body);font-size:var(--text-sm);opacity:0.65;line-height:var(--leading-loose);">Phone: —<br>Email: —</p>
+        </div>
+      </div>
+
+      <!--
+        WhatsApp link + social embeds — placeholders only, same
+        convention as everything else on this page ("Replace with
+        actual..."). Real handles/links are his to supply; a live embed
+        (Instagram/Facebook SDK script) pointed at a placeholder handle
+        would just be dead weight until then, so this stays a plain
+        link row rather than an embedded widget.
+      -->
+      <div use:animateOnScroll style="margin-top:var(--space-8);" data-animate="fade-up">
+        <span class="t-eyebrow">WhatsApp</span>
+        <p style="font-family:var(--font-body);font-size:var(--text-sm);opacity:0.65;margin-bottom:var(--space-4);">
+          <a href="https://wa.me/REPLACE_WITH_NUMBER" class="social-link">Replace with actual WhatsApp number/link →</a>
+        </p>
+        <span class="t-eyebrow">Follow Us</span>
+        <div class="social-row">
+          <a href="https://instagram.com/REPLACE_WITH_HANDLE" class="social-link">Instagram — replace with handle</a>
+          <a href="https://facebook.com/REPLACE_WITH_HANDLE" class="social-link">Facebook — replace with handle</a>
+          <a href="https://x.com/REPLACE_WITH_HANDLE" class="social-link">X / Twitter — replace with handle</a>
         </div>
       </div>
     </div>
@@ -313,5 +340,28 @@
       box-shadow: 0 0 0 3px var(--color-purple-ghost);
     }
     textarea.contact-field { resize: vertical; min-height: 120px; }
+
+    /* Staff type badge + social/WhatsApp links */
+    .faculty__type {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      opacity: 0.4;
+      margin-top: var(--space-1);
+    }
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+    .social-link {
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      color: var(--color-purple);
+      text-decoration: none;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .social-link:hover { opacity: 1; }
 
 </style>
