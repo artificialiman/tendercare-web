@@ -1,0 +1,6 @@
+{
+  "generated_at": null,
+  "note": "Empty on purpose -- scripts/generate_yearbook_json.py exists and is ready to run, but this pass had no live access to the tendercare Supabase project to actually run it. Run it with PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_ANON_KEY set (see the script's own docstring) to populate this for real. Same honest-empty pattern as alumni.json -- an empty file with this note beats a build-time crash or, worse, fabricated placeholder students.",
+  "priority_classes": [],
+  "stock_photo_source_classes": []
+}
