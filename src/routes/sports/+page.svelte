@@ -59,6 +59,32 @@
 	function onKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') closeEventModal();
 	}
+
+	// New addition, not a port from the original static page: a
+	// swipeable/GIF-capable moments gallery, added per the brand's
+	// bandwidth-conscious video-avoidance approach. Data-driven with
+	// placeholder slots rather than guessed or reused filenames — the
+	// only image paths already confirmed to exist in this file are the
+	// ones already placed in the hero, gallery, and reactions sections
+	// above, and inventing plausible-sounding new ones risks a broken
+	// path. A placeholder `src` renders as a text box, not an <img> (see
+	// the {#if m.src.startsWith('Replace')} check in the markup below) —
+	// this site prerenders statically, so an actual <img src="Replace
+	// with...">  would get crawled and 404 the whole build, unlike the
+	// existing video-chip placeholders above, which live in onclick
+	// handlers the prerenderer never touches. Drop a real image or GIF
+	// path into the array and it renders/animates natively, no other
+	// code change needed.
+	let momentsGallery: HTMLDivElement;
+	const moments: { src: string; alt: string; caption: string }[] = [
+		{ src: 'Replace with image or GIF path', alt: 'Moment 1', caption: 'Add a caption' },
+		{ src: 'Replace with image or GIF path', alt: 'Moment 2', caption: 'Add a caption' },
+		{ src: 'Replace with image or GIF path', alt: 'Moment 3', caption: 'Add a caption' },
+		{ src: 'Replace with image or GIF path', alt: 'Moment 4', caption: 'Add a caption' }
+	];
+	function scrollMoments(direction: -1 | 1) {
+		momentsGallery?.scrollBy({ left: direction * momentsGallery.clientWidth * 0.8, behavior: 'smooth' });
+	}
 </script>
 
 <svelte:window onkeydown={onKeydown} />
@@ -182,6 +208,36 @@
         <div class="sport-photo__caption">Mercy competing</div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       MOMENTS — swipeable gallery
+       New addition (not ported from the original static page). Add
+       real image/GIF paths to the `moments` array above; each slot
+       renders as-is via a plain <img>, so a .gif animates natively
+       with no extra code. Bandwidth-conscious alternative to video —
+       does not replace or alter the video modal/event chips above.
+  ══════════════════════════════════ -->
+  <section class="moments" style="padding:var(--space-10) 0;background:var(--color-ink);">
+    <div class="container">
+      <span use:animateOnScroll class="t-eyebrow" style="color:rgba(255,255,255,0.4);margin-bottom:var(--space-6);display:block;" data-animate="fade-up">More Moments</span>
+    </div>
+    <div class="moments-row-wrap">
+      <button class="moments-nav moments-nav--prev" onclick={() => scrollMoments(-1)} aria-label="Scroll moments left">‹</button>
+      <div class="moments-row" bind:this={momentsGallery}>
+        {#each moments as m}
+          <div class="moment-item">
+            {#if m.src.startsWith('Replace')}
+              <div class="moment-item__placeholder">Drop an image or GIF path in here</div>
+            {:else}
+              <img src={m.src} alt={m.alt} loading="lazy" />
+            {/if}
+            <div class="moment-item__caption">{m.caption}</div>
+          </div>
+        {/each}
+      </div>
+      <button class="moments-nav moments-nav--next" onclick={() => scrollMoments(1)} aria-label="Scroll moments right">›</button>
     </div>
   </section>
 
@@ -331,4 +387,59 @@
     .reaction-item { aspect-ratio:1; overflow:hidden; position:relative; cursor:pointer; }
     .reaction-item img { width:100%; height:100%; object-fit:cover; object-position:center 15%; filter:grayscale(0.15) brightness(0.9); transition:transform var(--duration-base) var(--ease-out),filter var(--duration-base); }
     .reaction-item:hover img { transform:scale(1.08); filter:grayscale(0) brightness(1); }
+
+    /* Moments — swipeable gallery (new addition) */
+    .moments-row-wrap { position:relative; display:flex; align-items:center; }
+    .moments-row {
+        display:flex;
+        gap:var(--space-3);
+        overflow-x:auto;
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+        padding:0 var(--space-5) var(--space-2);
+        scrollbar-width:none;
+    }
+    .moments-row::-webkit-scrollbar { display:none; }
+    .moment-item {
+        position:relative;
+        flex:0 0 auto;
+        width:min(78vw,320px);
+        aspect-ratio:4/3;
+        scroll-snap-align:start;
+        border-radius:var(--radius-md);
+        overflow:hidden;
+        background:var(--color-ink-soft);
+    }
+    .moment-item img { width:100%; height:100%; object-fit:cover; object-position:center; }
+    .moment-item__placeholder {
+        width:100%; height:100%;
+        display:flex; align-items:center; justify-content:center;
+        text-align:center; padding:var(--space-4);
+        background:linear-gradient(160deg,#1a1028,#0a050f);
+        color:rgba(255,255,255,0.35);
+        font-family:var(--font-sans); font-size:var(--text-xs);
+    }
+    .moment-item__caption {
+        position:absolute; bottom:0; left:0; right:0;
+        padding:var(--space-3);
+        background:linear-gradient(to top,rgba(0,0,0,0.75),transparent);
+        color:white; font-family:var(--font-sans); font-size:var(--text-xs);
+    }
+    .moments-nav {
+        flex:0 0 auto;
+        width:36px; height:36px;
+        border-radius:50%;
+        border:1px solid rgba(255,255,255,0.15);
+        background:rgba(255,255,255,0.06);
+        color:white;
+        font-size:1.2rem;
+        line-height:1;
+        cursor:pointer;
+        display:none;
+        align-items:center;
+        justify-content:center;
+        margin:0 var(--space-3);
+    }
+    @media(min-width:768px){ .moments-nav { display:flex; } }
+    .moments-nav:hover { background:var(--color-lemon); color:var(--color-ink); border-color:var(--color-lemon); }
 </style>
