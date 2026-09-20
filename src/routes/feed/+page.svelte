@@ -12,7 +12,7 @@
 	// layout), same as before.
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
-	import { supabase } from '$lib/supabase';
+	import { getSupabase } from '$lib/supabase';
 
 	type FeedKind = 'result_upload' | 'class_average' | 'media_change' | 'staff_role_change' | 'staff_arrival';
 
@@ -82,6 +82,20 @@
 	}
 
 	onMount(async () => {
+		// getSupabase() is only ever called here, inside onMount -- never
+		// at module scope -- so prerendering this page never constructs a
+		// Supabase client at all. See $lib/supabase.ts for the full story
+		// of why that distinction is what broke the last two deploys.
+		const supabase = getSupabase();
+		if (!supabase) {
+			// Only reachable if PUBLIC_SUPABASE_URL/PUBLIC_SUPABASE_ANON_KEY
+			// are genuinely unset for this deploy -- a real
+			// misconfiguration to surface clearly, not something to paper
+			// over with an empty-looking feed.
+			loadError = 'Feed is not configured for this deployment.';
+			loading = false;
+			return;
+		}
 		try {
 			// Reaction counts computed via a joined count rather than a
 			// stored counter column on feed_posts -- feed_reactions is the
